@@ -1,0 +1,26 @@
+language: python
+fast_finish: true
+
+python: 
+  - 3.6
+
+os:
+  - linux
+
+group: travis_latest
+  
+git:
+  depth: 3
+
+addons:
+  apt:
+    packages:
+      - gfortran
+
+install:
+    - pip install -e .[tests]
+
+script: coverage run tests/test_all.py -v
+
+after_success: coveralls
+
