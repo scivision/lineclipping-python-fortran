@@ -6,6 +6,8 @@ python:
 
 os:
   - linux
+  
+env: FC=gfortran-6
 
 group: travis_latest
   
@@ -14,8 +16,20 @@ git:
 
 addons:
   apt:
+    sources:
+      - ubuntu-toolchain-r-test
     packages:
-      - gfortran
+      - gfortran-6
+
+
+before_install:
+  - if [[ $TRAVIS_OS_NAME == osx ]]; then
+      brew update;
+      brew install gcc || true;
+      brew link --overwrite gcc;
+      export FC=gfortran;
+      brew install opencoarrays hdf5 netcdf;
+    fi
 
 install:
     - pip install -e .[tests]
