@@ -31,10 +31,9 @@ build_script:
 - sh: cmake ..
 - sh: make
 
+- cd ..
 - pip -q install -e .[tests]
   
 after_build:
-
-- cd ..
 - pytest
 
