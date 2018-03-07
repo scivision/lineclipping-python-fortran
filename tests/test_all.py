@@ -30,13 +30,7 @@ class BasicTests(unittest.TestCase):
         assert_array_almost_equal([x1,y1,x2,y2],[1, 4, 4, 4])
 
     def test_fortran_lineclip(self):
-        try:
-            subprocess.run(['cmake','..'],cwd='bin',timeout=10)
-            subprocess.run(['make'],cwd='bin',timeout=10)
-        except Exception:
-            logging.error('could not compile Fortran code')
-            return
-            
+          
         subprocess.check_call([str(path / 'bin/RunLineclip')])
 
 

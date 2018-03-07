@@ -28,13 +28,20 @@ before_install:
       brew install gcc || true;
       brew link --overwrite gcc;
       export FC=gfortran;
-      brew install opencoarrays hdf5 netcdf;
+      brew install opencoarrays;
     fi
 
 install:
-    - pip install -e .[tests]
+  - pip -q install -e .[tests]
+  
+  - cd bin
+  - cmake ..
+  - make
+  - cd ..
 
-script: coverage run tests/test_all.py -v
+script: 
+  - pytest
+  - coverage run tests/test_all.py
 
 after_success: coveralls
 

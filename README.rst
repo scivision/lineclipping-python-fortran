@@ -1,5 +1,12 @@
 .. image:: https://travis-ci.org/scivision/lineclipping-python-fortran.svg?branch=master
     :target: https://travis-ci.org/scivision/lineclipping-python-fortran
+
+.. image:: https://ci.appveyor.com/api/projects/status/cr0omkhjvgwcyxiy?svg=true
+    :target: https://ci.appveyor.com/project/scivision/lineclipping-python-fortran
+
+==================
+Line clipping
+==================    
     
 * lineClipping.jl   Cohen-Sutherland line clipping algorithm for Julia. Input scalars, output intersection length, or ``None`` if no intersection.
 * lineclipping.f90  Cohen-Sutherland line clipping algorithm for massively parallel coarray modern Fortran. Input scalars or arrays, output intersections or ``NaN`` if no intersection.

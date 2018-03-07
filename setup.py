@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 install_requires = ['numpy']
-tests_require=['nose','coveralls']
+tests_require=['pytest','nose','coveralls']
 # %%
 from setuptools import setup,find_packages
 
@@ -23,3 +23,4 @@ setup(name='pylineclip',
       extras_require={'tests':tests_require},
       python_requires='>=2.7',
 	  )
+
