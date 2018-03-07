@@ -4,8 +4,10 @@ project( morecvutils Fortran )
 add_compile_options(-O3 -mtune=native -g)
 
 if(${CMAKE_Fortran_COMPILER_ID} MATCHES "GNU")
-  add_compile_options(-Wall -Wextra -Wpedantic -Werror=array-bounds -fbacktrace 
-    -fexceptions -fstack-protector-all)
+  add_compile_options(-Wall -Wextra -Wpedantic -Werror=array-bounds -fbacktrace -fexceptions)
+  if(NOT CYGWIN AND NOT WIN32)
+    add_compile_options(-fstack-protector-all)
+  endif()
 endif()
 
 
