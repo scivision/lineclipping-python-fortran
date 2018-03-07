@@ -12,7 +12,7 @@ environment:
 clone_depth: 3
 
 before_build:
-- cmd: set PATH=%MINGW_DIR%;%PY_DIR%;%PATH%
+- cmd: set PATH=%MINGW_DIR%;%PY_DIR%;%PY_DIR$\Scripts;%PATH%
 # fix CMake sh.exe issue, by removing Git path.
 - cmd: set PATH=%PATH:C:\Program Files\Git\usr\bin;=%
 - cmd: set FC=%MINGW_DIR%\gfortran 
@@ -32,6 +32,7 @@ build_script:
 - sh: make
 
 - cd ..
+- cmd: where python
 - pip -q install -e .[tests]
   
 after_build:
