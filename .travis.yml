@@ -40,7 +40,7 @@ install:
   - cd ..
 
 script: 
-  - pytest
+  - pytest -v
   - coverage run tests/test_all.py
 
 after_success: coveralls

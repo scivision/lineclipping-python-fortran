@@ -36,5 +36,5 @@ build_script:
 - pip -q install -e .[tests]
   
 after_build:
-- pytest
+- pytest -v
 
