@@ -1,9 +1,10 @@
-cmake_minimum_required(VERSION 2.8.12)
-project( morecvutils Fortran )
+cmake_minimum_required(VERSION 3.0)
+project(lineclip Fortran)
+enable_testing()
 
 add_compile_options(-O3 -mtune=native -g)
 
-if(${CMAKE_Fortran_COMPILER_ID} MATCHES "GNU")
+if(${CMAKE_Fortran_COMPILER_ID} STREQUAL GNU)
   add_compile_options(-Wall -Wextra -Wpedantic -Werror=array-bounds -fbacktrace -fexceptions)
   if(NOT CYGWIN AND NOT WIN32)
     add_compile_options(-fstack-protector-all)
@@ -13,18 +14,24 @@ endif()
 
 if(${CMAKE_Fortran_COMPILER_ID} STREQUAL Intel)
     add_compile_options(-coarray=shared)# -check all)
-    link_libraries(-coarray=shared) # seems silly but that's what's needed at object code step for ifort
+    link_libraries(-coarray=shared)
 elseif(${CMAKE_Fortran_COMPILER_ID} STREQUAL GNU)
-  if ($ENV{TRAVIS}) # on Travis-CI
-    add_compile_options(-fcoarray=single)
-  else()
+  find_package(OpenCoarrays)
+  
+  if(OpenCoarrays_FOUND)
     add_compile_options(-fcoarray=lib)
-    set(FCAF ${FCAF} caf_mpi)
+    link_libraries(caf_mpi)
+  else()
+    add_compile_options(-fcoarray=single)
   endif()
+elseif(${CMAKE_Fortran_COMPILER_ID} STREQUAL Flang)
+  link_libraries(-static-flang-libs)
 endif()
 
 add_library(lineclip lineclipping.f90)
-target_link_libraries(lineclip ${FCAF})
+target_link_libraries(lineclip)
 
 add_executable(RunLineclip DemoLineclip.f90 assert.f90)
 target_link_libraries(RunLineclip lineclip)
+
+add_test(NAME clip COMMAND ./RunLineclip)
