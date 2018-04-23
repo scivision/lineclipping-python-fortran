@@ -19,8 +19,8 @@ elseif(${CMAKE_Fortran_COMPILER_ID} STREQUAL GNU)
   find_package(OpenCoarrays)
   
   if(OpenCoarrays_FOUND)
+    list(APPEND OpenCoarrays_LIBRARIES caf_mpi)
     add_compile_options(-fcoarray=lib)
-    link_libraries(caf_mpi)
   else()
     add_compile_options(-fcoarray=single)
   endif()
@@ -32,6 +32,6 @@ add_library(lineclip lineclipping.f90)
 target_link_libraries(lineclip)
 
 add_executable(RunLineclip DemoLineclip.f90 assert.f90)
-target_link_libraries(RunLineclip lineclip)
+target_link_libraries(RunLineclip PRIVATE lineclip ${OpenCoarrays_LIBRARIES})
 
 add_test(NAME clip COMMAND ./RunLineclip)
