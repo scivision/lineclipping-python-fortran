@@ -30,13 +30,7 @@ If you want to use the Fortran Cohen-Sutherland line clipping modules directly (
     cd bin
     cmake ..
     make
-    
-If you don't have a modern Fortran compiler with coarray support, do::
 
-    cd bin
-    TRAVIS=1 cmake ..
-    make
-    
 
 Usage
 =====
@@ -47,7 +41,7 @@ Python
 
 .. code:: python
 
-    import morecvutils.lineclipping as lc
+    import pylineclip.lineclipping as lc
     
     x3,y3,x4,y4 = lc.cohensutherland((xmin, ymax, xmax, ymin, x1, y1, x2, y2)
     
