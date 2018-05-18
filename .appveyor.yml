@@ -22,19 +22,16 @@ before_build:
 - sh: sudo apt -yq update > /dev/null
 - sh: sudo apt install -yq --no-install-suggests --no-install-recommends gfortran cmake make > /dev/null
 
-- cd bin
-
 build_script:
+- pip install -e .[tests]
+
+- cd bin
 - cmd: cmake -G "MinGW Makefiles" ..
 - sh: cmake ..
-
 - make
-
-- cd ..
-- cmd: where python
-- pip -q install -e .[tests]
   
 after_build:
 - make test
+- cd ..
 - pytest -v
 
