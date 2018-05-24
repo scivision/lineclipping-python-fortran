@@ -1,12 +1,12 @@
 module lineclip
 
-use, intrinsic:: iso_c_binding, only: sp=>C_FLOAT, dp=>C_DOUBLE, c_int
+use, intrinsic:: iso_c_binding, only: c_int
 use, intrinsic:: iso_fortran_env, only : stderr=>error_unit
 use, intrinsic:: ieee_arithmetic, only: ieee_value, ieee_quiet_nan, ieee_is_nan
+use assert, only: err,wp
 
 implicit none
 
-    integer, parameter :: wp=dp
     integer,parameter :: inside=0,left=1,right=2,lower=4,upper=8
     private
     public:: wp,cohensutherland,Ccohensutherland
@@ -58,8 +58,6 @@ real(wp) :: x,y
  nan = ieee_value(1.,ieee_quiet_nan)
 
 
-
-
 ! check for trivially outside lines
 k1 = getclip(x1,y1,xmin,xmax,ymin,ymax)
 k2 = getclip(x2,y2,xmin,xmax,ymin,ymax)
@@ -87,13 +85,13 @@ do while (ior(k1,k2) /= 0)
         y = y1 + (y2 - y1) * (xmin - x1) / (x2 - x1)
         x = xmin
     else
-        error stop 'undefined clipping state'
+        call err('undefined clipping state')
     endif
     
-    if (opt == k1) then
+    if (opt == k1) then ! not case select
         x1 = x; y1 = y
         k1 = getclip(x1,y1,xmin,xmax,ymin,ymax)
-    else if (opt == k2) then
+    elseif (opt == k2) then
         x2 = x; y2 = y
         k2 = getclip(x2,y2,xmin,xmax,ymin,ymax)
     endif

@@ -2,7 +2,12 @@ cmake_minimum_required(VERSION 3.7)
 project(lineclip Fortran)
 enable_testing()
 
-add_compile_options(-O3 -g)
+
+if(CMAKE_BUILD_TYPE STREQUAL Debug)
+  add_compile_options(-g -O0)
+else()
+  add_compile_options(-O3)
+endif()
 
 if(${CMAKE_Fortran_COMPILER_ID} STREQUAL GNU)
   if(${CMAKE_Fortran_COMPILER_VERSION} VERSION_GREATER_EQUAL 8.1)
@@ -15,14 +20,17 @@ if(${CMAKE_Fortran_COMPILER_ID} STREQUAL GNU)
   if(NOT CYGWIN AND NOT WIN32)
     list(APPEND FFLAGS -fstack-protector-all)
   endif()
+elseif(${CMAKE_Fortran_COMPILER_ID} STREQUAL PGI)
+  list(APPEND FFLAGS -Mallocatable=03)
 elseif(${CMAKE_Fortran_COMPILER_ID} STREQUAL Flang)
+  list(APPEND FFLAGS -Mallocatable=03)
   link_libraries(-static-flang-libs)
 endif()
 
-# TODO should be able to run coarrays demo even in single case, may be algorithmic error in my Coarray demo code?
+
 set(DEMO_COARRAYS FALSE)
 if(${CMAKE_Fortran_COMPILER_ID} STREQUAL Intel)
-    add_compile_options(-coarray=shared)# -check all)
+    add_compile_options(-coarray=shared)
     link_libraries(-coarray=shared)
     set(DEMO_COARRAYS TRUE)
 elseif(${CMAKE_Fortran_COMPILER_ID} STREQUAL GNU)
@@ -39,7 +47,12 @@ endif()
 
 add_library(lineclip lineclipping.f90)
 
-add_library(assert assert.f90)
+set(okcomp GNU Intel)
+if(CMAKE_Fortran_COMPILER_ID IN_LIST okcomp)
+  add_library(assert assert.f90)
+else()
+  add_library(assert assert_legacy.f90)
+endif()
 
 add_executable(RunLineclip DemoLineclip.f90)
 target_compile_options(RunLineclip PRIVATE ${FFLAGS})
