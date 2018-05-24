@@ -43,7 +43,7 @@ elemental logical function isclose(actual, desired, rtol, atol, equal_nan)
   !print*,r,a,n,actual,desired
   
 !--- sanity check
-  if ((r < 0._wp).or.(a < 0._wp)) stop 'tolerances must be non-negative'
+  if ((r < 0._wp).or.(a < 0._wp)) call err('tolerances must be non-negative')
 !--- simplest case
   isclose = (actual == desired) 
   if (isclose) return
@@ -77,7 +77,7 @@ impure elemental subroutine assert_isclose(actual, desired, rtol, atol, equal_na
 
   if (.not.isclose(actual,desired,rtol,atol,equal_nan)) then
     write(stderr,*) merge(err_msg,'',present(err_msg)),': actual',actual,'desired',desired
-   stop
+   stop -1
   endif
 
 end subroutine assert_isclose
@@ -85,7 +85,8 @@ end subroutine assert_isclose
 
 pure subroutine err(msg)
   character, intent(in) :: msg
-  stop msg
+  write(stderr,*) msg
+  stop -1
 end subroutine err
 
 end module assert
