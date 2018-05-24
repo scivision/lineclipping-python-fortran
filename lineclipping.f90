@@ -55,8 +55,9 @@ real(wp) :: nan
 integer k1, k2, opt ! just plain integers
 real(wp) :: x,y
 
- nan = ieee_value(1.,ieee_quiet_nan)
-
+nan = ieee_value(1.,ieee_quiet_nan)
+y = nan
+x = nan
 
 ! check for trivially outside lines
 k1 = getclip(x1,y1,xmin,xmax,ymin,ymax)
