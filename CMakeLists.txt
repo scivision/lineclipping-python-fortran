@@ -43,9 +43,6 @@ elseif(${CMAKE_Fortran_COMPILER_ID} STREQUAL GNU)
   endif()
 endif()
 
-add_library(lineclip lineclipping.f90)
-target_compile_options(lineclip PRIVATE ${FFLAGS})
-
 set(okcomp GNU Intel)
 if(CMAKE_Fortran_COMPILER_ID IN_LIST okcomp)
   add_library(assert assert.f90)
@@ -53,6 +50,10 @@ else()
   add_library(assert assert_legacy.f90)
 endif()
 target_compile_options(assert PRIVATE ${FFLAGS})
+
+add_library(lineclip lineclipping.f90)
+target_compile_options(lineclip PRIVATE ${FFLAGS})
+target_link_libraries(lineclip PRIVATE assert)
 
 add_executable(RunLineclip DemoLineclip.f90)
 target_compile_options(RunLineclip PRIVATE ${FFLAGS})
