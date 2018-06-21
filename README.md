@@ -1,14 +1,17 @@
 [![Travis CI](https://travis-ci.org/scivision/lineclipping-python-fortran.svg?branch=master)](https://travis-ci.org/scivision/lineclipping-python-fortran)
 [![AppVeyor](https://ci.appveyor.com/api/projects/status/cr0omkhjvgwcyxiy?svg=true)](https://ci.appveyor.com/project/scivision/lineclipping-python-fortran)
+[![PyPi versions](https://img.shields.io/pypi/pyversions/pylineclip.svg)](https://pypi.python.org/pypi/pylineclip)
+[![PyPi wheels](https://img.shields.io/pypi/format/pylineclip.svg)](https://pypi.python.org/pypi/pylineclip)
+[![PyPi Download stats](http://pepy.tech/badge/pylineclip)](http://pepy.tech/project/pylineclip)
 
 # Line clipping
 
--   lineClipping.jl Cohen-Sutherland line clipping algorithm for Julia.
+-   `lineClipping.jl` Cohen-Sutherland line clipping algorithm for Julia.
     Input scalars, output intersection length, or `None` if no intersection.
--   lineclipping.f90 Cohen-Sutherland line clipping algorithm for
+-   `lineclipping.f90` Cohen-Sutherland line clipping algorithm for
     massively parallel coarray modern Fortran. Input scalars or arrays,
     output intersections or `NaN` if no intersection.
--   lineClipping.py Cohen-Sutherland line clipping algorithm for Python.
+-   `lineClipping.py` Cohen-Sutherland line clipping algorithm for Python.
     Input scalars, output intersection length, or `None` if no intersection.
 
 ## Install
