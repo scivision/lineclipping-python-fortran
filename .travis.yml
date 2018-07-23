@@ -1,20 +1,21 @@
 language: python
-fast_finish: true
+sudo: required
+dist: xenial
+group: travis_latest
 
-python: 
+git:
+  depth: 3
+  quiet: true
+
+python:
   - 3.5
   - 3.6
-  - "3.7-dev"
+  - 3.7
 
 os:
   - linux
   
 env: FC=gfortran-6
-
-group: travis_latest
-  
-git:
-  depth: 3
 
 addons:
   apt:
@@ -27,32 +28,29 @@ addons:
 before_install:
   - if [[ $TRAVIS_OS_NAME == osx ]]; then
       brew update > /dev/null;
-      brew install gcc || true > /dev/null;
-      brew link --overwrite gcc > /dev/null;
+      brew install gcc > /dev/null || brew link --overwrite gcc > /dev/null;
       export FC=gfortran;
       brew install opencoarrays > /dev/null;
     fi
 
 install:
-  - pip -q install -e .[tests]
-  
+  - pip install -e .[tests]
+
   - cd bin
   - cmake ..
-  - make
-  - make test
-  - cd ..
+  - cmake --build .
 
-script: 
+script:
+  - ctest -V
+  - cd ..
+  
   - pytest -sv
   - flake8
   - mypy . --ignore-missing-imports
 
-after_success: 
+after_success:
   - if [[ $TRAVIS_PYTHON_VERSION == 3.6* ]]; then
-    coverage run tests/test_all.py;
+    pytest --cov;
     coveralls;
     fi
-    
-after_failure:
-  - ctest -V
 

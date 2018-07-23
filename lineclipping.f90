@@ -3,7 +3,7 @@ module lineclip
 use, intrinsic:: iso_c_binding, only: c_int
 use, intrinsic:: iso_fortran_env, only : stderr=>error_unit
 use, intrinsic:: ieee_arithmetic, only: ieee_value, ieee_quiet_nan, ieee_is_nan
-use assert, only: err,wp
+use assert, only: errorstop,wp
 
 implicit none
 
@@ -86,7 +86,7 @@ do while (ior(k1,k2) /= 0)
         y = y1 + (y2 - y1) * (xmin - x1) / (x2 - x1)
         x = xmin
     else
-        call err('undefined clipping state')
+        call errorstop() ! 'undefined clipping state'
     endif
     
     if (opt == k1) then ! not case select

@@ -2,7 +2,7 @@ program test
 
     use, intrinsic:: ieee_arithmetic
     use lineclip,only: Ccohensutherland, cohensutherland
-    use assert, only: wp, err, assert_isclose
+    use assert, only: wp, errorstop, assert_isclose
 
     implicit none
     
@@ -66,7 +66,7 @@ subroutine test_lineclip()
     x1=0.;y1=0.1;x2=0.;y2=0.1
     
     call cohensutherland(xmin,ymax,xmax,ymin,x1,y1,x2,y2)
-    if (.not.all(ieee_is_nan([x1,y1,x2,y2]))) call err('failed no intersection test')
+    if (.not.all(ieee_is_nan([x1,y1,x2,y2]))) call errorstop() !'failed no intersection test'
     
     print *, 'OK lineclip'
     

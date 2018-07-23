@@ -10,12 +10,12 @@ else()
 endif()
 
 if(${CMAKE_Fortran_COMPILER_ID} STREQUAL GNU)
-  if(${CMAKE_Fortran_COMPILER_VERSION} VERSION_GREATER_EQUAL 8.1)
+  if(${CMAKE_Fortran_COMPILER_VERSION} VERSION_GREATER_EQUAL 8)
     list(APPEND FFLAGS -std=f2018)
   endif()
   
   list(APPEND FFLAGS -mtune=native -Wall -Wextra -Wpedantic -Werror=array-bounds -fbacktrace -fexceptions)
-  if(NOT CYGWIN AND NOT WIN32)
+  if(UNIX AND NOT (CYGWIN OR APPLE))
     list(APPEND FFLAGS -fstack-protector-all)
   endif()
 elseif(${CMAKE_Fortran_COMPILER_ID} STREQUAL PGI)
@@ -43,13 +43,17 @@ elseif(${CMAKE_Fortran_COMPILER_ID} STREQUAL GNU)
   endif()
 endif()
 
-set(okcomp GNU Intel)
-if(CMAKE_Fortran_COMPILER_ID IN_LIST okcomp)
-  add_library(assert assert.f90)
-else()
-  add_library(assert assert_legacy.f90)
-endif()
+
+add_library(assert assert.f90)
 target_compile_options(assert PRIVATE ${FFLAGS})
+
+set(f08 GNU Intel)
+if(CMAKE_Fortran_COMPILER_ID IN_LIST f08)
+  target_sources(assert PRIVATE error2008.f90)
+else()
+  target_sources(assert PRIVATE error2003.f90)
+endif()
+
 
 add_library(lineclip lineclipping.f90)
 target_compile_options(lineclip PRIVATE ${FFLAGS})
