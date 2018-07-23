@@ -2,7 +2,7 @@ program lineclip
 
     use, intrinsic:: ieee_arithmetic
     use lineclip,only: Ccohensutherland, cohensutherland
-    use assert
+    use assert, only: wp, errorstop, assert_isclose
     
     implicit none
     
