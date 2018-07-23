@@ -1,4 +1,5 @@
 [![Travis CI](https://travis-ci.org/scivision/lineclipping-python-fortran.svg?branch=master)](https://travis-ci.org/scivision/lineclipping-python-fortran)
+[![Coverage Status](https://coveralls.io/repos/github/scivision/lineclipping-python-fortran/badge.svg?branch=master)](https://coveralls.io/github/scivision/lineclipping-python-fortran?branch=master)
 [![AppVeyor](https://ci.appveyor.com/api/projects/status/cr0omkhjvgwcyxiy?svg=true)](https://ci.appveyor.com/project/scivision/lineclipping-python-fortran)
 [![PyPi versions](https://img.shields.io/pypi/pyversions/pylineclip.svg)](https://pypi.python.org/pypi/pylineclip)
 [![PyPi wheels](https://img.shields.io/pypi/format/pylineclip.svg)](https://pypi.python.org/pypi/pylineclip)
