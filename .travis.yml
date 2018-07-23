@@ -31,9 +31,9 @@ before_install:
       export FC=gfortran;
       brew install opencoarrays > /dev/null;
     else
-      sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y;
-      sudo apt-get update -q;
-      sudo apt-get install -yq gfortran-6;
+      sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y > /dev/null;
+      sudo apt-get update -q > /dev/null;
+      sudo apt-get install -yq gfortran-6 > /dev/null;
     fi
 
 install:
