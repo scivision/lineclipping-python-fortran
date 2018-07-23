@@ -17,12 +17,11 @@ os:
   
 env: FC=gfortran-6
 
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - gfortran-6
+# FIXME: temporary for travis xenial
+#addons:
+#  apt:
+#    sources: ubuntu-toolchain-r-test
+#    packages: gfortran-6
 
 
 before_install:
@@ -31,6 +30,10 @@ before_install:
       brew install gcc > /dev/null || brew link --overwrite gcc > /dev/null;
       export FC=gfortran;
       brew install opencoarrays > /dev/null;
+    else
+      sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y;
+      sudo apt-get update -q;
+      sudo apt-get install -yq gfortran-6;
     fi
 
 install:
