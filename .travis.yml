@@ -8,12 +8,11 @@ git:
   quiet: true
 
 python:
-  - 3.5
-  - 3.6
-  - 3.7
+- 3.6
+- 3.7
 
 os:
-  - linux
+- linux
   
 env: FC=gfortran-6
 
@@ -37,23 +36,23 @@ before_install:
     fi
 
 install:
-  - pip install -e .[tests]
+- pip install -e .[tests]
 
-  - cd bin
-  - cmake ..
-  - cmake --build .
+- cd bin
+- cmake ..
+- cmake --build .
 
 script:
-  - ctest -V
-  - cd ..
-  
-  - pytest -sv
-  - flake8
-  - mypy . --ignore-missing-imports
+- ctest -V
+- cd ..
+
+- pytest -rsv
+- flake8
+- mypy . --ignore-missing-imports
 
 after_success:
-  - if [[ $TRAVIS_PYTHON_VERSION == 3.6* ]]; then
-    pytest --cov;
-    coveralls;
-    fi
+- if [[ $TRAVIS_PYTHON_VERSION == 3.6* ]]; then
+  pytest --cov --cov-config=setup.cfg;
+  coveralls;
+  fi
 
