@@ -3,7 +3,7 @@
  The MIT License (MIT)
  Copyright (c) 2018 Michael Hirsch, Ph.D.
 =#
-using Base.Test
+using Test
 
 function cohensutherland(xmin, ymax, xmax, ymin, x1, y1, x2, y2)
     #=
