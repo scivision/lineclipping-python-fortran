@@ -95,7 +95,7 @@ function cohensutherland(xmin, ymax, xmax, ymin, x1, y1, x2, y2)
 end
 
 
-if PROGRAM_FILE == splitdir(@__FILE__)[end]
+if basename(PROGRAM_FILE) == basename(@__FILE__)
     xmin, ymax, xmax, ymin, x1, y1, x2, y2 = 1,  5, 4, 3, 0,  0, 4, 6
 
     x1, y1, x2, y2 = cohensutherland(xmin, ymax, xmax, ymin, x1, y1, x2, y2)
