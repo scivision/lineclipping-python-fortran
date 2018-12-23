@@ -19,10 +19,9 @@ if(${CMAKE_Fortran_COMPILER_ID} STREQUAL GNU)
     list(APPEND FFLAGS -fstack-protector-all)
   endif()
 elseif(${CMAKE_Fortran_COMPILER_ID} STREQUAL PGI)
-  list(APPEND FFLAGS -Mallocatable=03)
+
 elseif(${CMAKE_Fortran_COMPILER_ID} STREQUAL Flang)
   list(APPEND FFLAGS -Mallocatable=03)
-  link_libraries(-static-flang-libs)
 endif()
 
 
