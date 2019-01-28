@@ -1,5 +1,6 @@
 language: python
 group: travis_latest
+dist: xenial
 
 git:
   depth: 3
@@ -19,23 +20,15 @@ addons:
     packages: gfortran-6
 
 
-before_install:
-- if [[ $TRAVIS_OS_NAME == osx ]]; then
-    brew update > /dev/null;
-    brew install gcc > /dev/null || brew link --overwrite gcc > /dev/null;
-    export FC=gfortran;
-    brew install opencoarrays > /dev/null;
-  fi
-
 install:
-- pip install -e .[tests]
+- pip install -e .[tests,cov]
 
-- cd bin
+- cd build
 - cmake ..
 - cmake --build .
 
 script:
-- ctest -V
+- ctest --output-on-failure
 - cd ..
 
 - pytest -rsv
@@ -44,7 +37,7 @@ script:
 
 after_success:
 - if [[ $TRAVIS_PYTHON_VERSION == 3.6* ]]; then
-  pytest --cov --cov-config=setup.cfg;
+  pytest --cov
   coveralls;
   fi
 

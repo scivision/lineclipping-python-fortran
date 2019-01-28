@@ -1,6 +1,6 @@
 image:
 - Visual Studio 2017
-- Ubuntu
+- Ubuntu1804
 
 stack: python 3
 
@@ -19,7 +19,7 @@ init:
 install:
 - pip install -e .[tests]
 
-- cd bin
+- cd build
 - cmd: cmake -G "MinGW Makefiles" -DCMAKE_SH="CMAKE_SH-NOTFOUND" ..
 - sh: cmake ..
 - cmake --build .

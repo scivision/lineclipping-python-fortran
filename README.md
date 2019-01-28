@@ -2,18 +2,18 @@
 [![Coverage Status](https://coveralls.io/repos/github/scivision/lineclipping-python-fortran/badge.svg?branch=master)](https://coveralls.io/github/scivision/lineclipping-python-fortran?branch=master)
 [![AppVeyor](https://ci.appveyor.com/api/projects/status/cr0omkhjvgwcyxiy?svg=true)](https://ci.appveyor.com/project/scivision/lineclipping-python-fortran)
 [![PyPi versions](https://img.shields.io/pypi/pyversions/pylineclip.svg)](https://pypi.python.org/pypi/pylineclip)
-[![PyPi wheels](https://img.shields.io/pypi/format/pylineclip.svg)](https://pypi.python.org/pypi/pylineclip)
 [![PyPi Download stats](http://pepy.tech/badge/pylineclip)](http://pepy.tech/project/pylineclip)
 
 # Line clipping
 
--   `lineClipping.jl` Cohen-Sutherland line clipping algorithm for Julia.
-    Input scalars, output intersection length, or `None` if no intersection.
 -   `lineclipping.f90` Cohen-Sutherland line clipping algorithm for
     massively parallel coarray modern Fortran. Input scalars or arrays,
     output intersections or `NaN` if no intersection.
 -   `lineClipping.py` Cohen-Sutherland line clipping algorithm for Python.
     Input scalars, output intersection length, or `None` if no intersection.
+    
+    
+Julia line clipping is at https://github.com/scivision/lineclipping-julia
 
 ## Install
 
@@ -71,11 +71,3 @@ The arguments are:
     in - endpoints of line
     out - intersection points with box. If no intersection, all NaN
 
-### Julia
-
-Simliar to Python, except `nothing` is returned if no intersection
-found.
-
-```julia
-cohensutherland(xmin, ymax, xmax, ymin, x1, y1, x2, y2)
-```
