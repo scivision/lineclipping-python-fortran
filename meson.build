@@ -8,7 +8,7 @@ std18 = fc.first_supported_argument(['-std=f2018', '-stand f18', '/stand:f18'])
 add_project_arguments(std18, language : 'fortran')
 
 assert_lib = library('assert',
-  sources: ['assert.f90', 'error2008.f90'])
+  sources: ['assert.f90'])
 
 lineclip_lib = library('lineclip', 'lineclipping.f90',
   link_with: [assert_lib])

@@ -3,7 +3,7 @@ module lineclip
 use, intrinsic:: iso_c_binding, only: c_int
 use, intrinsic:: iso_fortran_env, only : stderr=>error_unit
 use, intrinsic:: ieee_arithmetic, only: ieee_value, ieee_quiet_nan, ieee_is_nan
-use assert, only: errorstop,wp
+use assert, only: wp
 
 implicit none
 
@@ -20,17 +20,17 @@ subroutine Ccohensutherland(xmin,ymax,xmax,ymin,Np,x1,y1,x2,y2) bind(c)
 ! ------
 ! xmin,ymax,xmax,ymin:  upper left and lower right corners of box (pixel coordinates)
 ! Np: number of points in vectors (number of elementts)
-! 
+!
 ! INOUT
 ! -----
-! x1,y1,x2,y2: 
+! x1,y1,x2,y2:
 ! in - endpoints of line
 ! out - intersection points with box. If no intersection, all NaN
-    
+
     integer(c_int), intent(in) :: Np
     real(wp),intent(in) :: xmin,ymax,xmax,ymin
     real(wp),intent(inout), dimension(Np):: x1,y1,x2,y2
-  
+
     call cohensutherland(xmin, ymax, xmax,ymin,x1,y1,x2,y2)
 
 end subroutine Ccohensutherland
@@ -41,13 +41,13 @@ elemental subroutine cohensutherland(xmin,ymax,xmax,ymin, &
 ! INPUTS
 ! ------
 ! xmin,ymax,xmax,ymin:  upper left and lower right corners of box (pixel coordinates)
-! 
+!
 ! INOUT
 ! -----
-! x1,y1,x2,y2: 
+! x1,y1,x2,y2:
 ! in - endpoints of line
 ! out - intersection points with box. If no intersection, all NaN
-    
+
 real(wp), intent(in) :: xmin,ymax,xmax,ymin
 real(wp), intent(out):: x1,y1,x2,y2
 real(wp) :: nan
@@ -68,10 +68,10 @@ do while (ior(k1,k2) /= 0)
 
     !trivially outside window, Reject
     if (iand(k1,k2) /= 0) then
-      x1=nan; y1=nan; x2=nan; y2=nan 
+      x1=nan; y1=nan; x2=nan; y2=nan
       return
     endif
-    
+
     opt = merge(k1,k2,k1 > 0)
     if (iand(opt,UPPER) > 0) then
         x = x1 + (x2 - x1) * (ymax - y1) / (y2 - y1)
@@ -86,9 +86,9 @@ do while (ior(k1,k2) /= 0)
         y = y1 + (y2 - y1) * (xmin - x1) / (x2 - x1)
         x = xmin
     else
-        call errorstop() ! 'undefined clipping state'
+        error stop 'undefined clipping state'
     endif
-    
+
     if (opt == k1) then ! not case select
         x1 = x; y1 = y
         k1 = getclip(x1,y1,xmin,xmax,ymin,ymax)
