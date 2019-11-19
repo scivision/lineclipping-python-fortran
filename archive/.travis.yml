@@ -11,7 +11,7 @@ python:
 
 os:
 - linux
-  
+
 env: FC=gfortran-6
 
 addons:
@@ -40,4 +40,3 @@ after_success:
   pytest --cov
   coveralls;
   fi
-

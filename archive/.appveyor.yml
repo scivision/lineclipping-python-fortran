@@ -28,4 +28,3 @@ test_script:
 - ctest -V
 - cd ..
 - pytest -rsv
-

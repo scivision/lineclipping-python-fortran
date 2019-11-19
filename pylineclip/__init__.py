@@ -1,10 +1,13 @@
 #!/usr/bin/env python
 from typing import Union, Tuple
+
 # from numba import jit
 '''
  The MIT License (MIT)
  Copyright (c) 2014 Michael Hirsch
+
  reference: http://en.wikipedia.org/wiki/Cohen%E2%80%93Sutherland_algorithm
+
  * The best way to Numba JIT this would probably be in the function calling this,
    to include the loop itself inside the jit decoration.
 '''
@@ -12,9 +15,9 @@ from typing import Union, Tuple
 # @jit
 
 
-def cohensutherland(xmin: float, ymax: float, xmax: float, ymin: float,
-                    x1: float, y1: float, x2: float, y2: float) -> Tuple[
-        Union[None, float], Union[None, float], Union[None, float], Union[None, float]]:
+def cohensutherland(
+    xmin: float, ymax: float, xmax: float, ymin: float, x1: float, y1: float, x2: float, y2: float
+) -> Tuple[float, float, float, float]:
     """Clips a line to a rectangular area.
 
     This implements the Cohen-Sutherland line clipping algorithm.  xmin,
@@ -45,11 +48,11 @@ def cohensutherland(xmin: float, ymax: float, xmax: float, ymin: float,
             p |= UPPER  # bitwise OR
         return p
 
-# check for trivially outside lines
+    # check for trivially outside lines
     k1 = _getclip(x1, y1)
     k2 = _getclip(x2, y2)
 
-# %% examine non-trivially outside points
+    # %% examine non-trivially outside points
     # bitwise OR |
     while (k1 | k2) != 0:  # if both points are inside box (0000) , ACCEPT trivial whole line in box
 

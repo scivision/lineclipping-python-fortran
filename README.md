@@ -1,6 +1,6 @@
-[![Travis CI](https://travis-ci.org/scivision/lineclipping-python-fortran.svg?branch=master)](https://travis-ci.org/scivision/lineclipping-python-fortran)
-[![Coverage Status](https://coveralls.io/repos/github/scivision/lineclipping-python-fortran/badge.svg?branch=master)](https://coveralls.io/github/scivision/lineclipping-python-fortran?branch=master)
-[![AppVeyor](https://ci.appveyor.com/api/projects/status/cr0omkhjvgwcyxiy?svg=true)](https://ci.appveyor.com/project/scivision/lineclipping-python-fortran)
+[![Actions Status](https://github.com/scivision/lineclipping-python-fortran/workflows/ci_python/badge.svg)](https://github.com/scivision/lineclipping-python-fortran/actions)
+
+
 [![PyPi versions](https://img.shields.io/pypi/pyversions/pylineclip.svg)](https://pypi.python.org/pypi/pylineclip)
 [![PyPi Download stats](http://pepy.tech/badge/pylineclip)](http://pepy.tech/project/pylineclip)
 
@@ -11,24 +11,30 @@
     output intersections or `NaN` if no intersection.
 -   `lineClipping.py` Cohen-Sutherland line clipping algorithm for Python.
     Input scalars, output intersection length, or `None` if no intersection.
-    
-    
+
+
 Julia line clipping is at https://github.com/scivision/lineclipping-julia
 
 ## Install
 
-### Python
+To install the latest release:
 
-    python -m pip install -e .
+```sh
+pip install pylineclip
+```
+
+
 
 ### Fortran
 
 If you want to use the Fortran Cohen-Sutherland line clipping modules
 directly (optional):
 
-    cd bin
-    cmake ..
-    make
+```sh
+meson build
+
+meson test -C build
+```
 
 ## Usage
 
@@ -48,7 +54,7 @@ If no intersection, `(None, None, None, None)` is returned.
 
 ### Fortran
 
-lineclipping.f90 has two subroutines. 
+lineclipping.f90 has two subroutines.
 Pick Ccohensutherland if you're calling from C/C++/Python, which cannot tolerate assummed-shape arrays.
 It's a slim wrapper to cohensutherland which is elemental (can handle scalar or any rank array).
 
@@ -67,7 +73,7 @@ The arguments are:
 
     INOUT
     -----
-    x1,y1,x2,y2: 
+    x1,y1,x2,y2:
     in - endpoints of line
     out - intersection points with box. If no intersection, all NaN
 

@@ -1,0 +1,27 @@
+name: ci_python
+
+on:
+  push:
+    paths:
+      - "**.py"
+  pull_request:
+    paths:
+      - "**.py"
+
+jobs:
+
+  linux:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.5, '3.x']
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
+    - run: pip install .[tests,lint]
+    - run: flake8
+    - run: mypy .
+    - run: pytest
+      working-directory: tests
