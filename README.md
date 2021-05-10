@@ -1,17 +1,17 @@
+# Line clipping
+
 [![Actions Status](https://github.com/scivision/lineclipping-python-fortran/workflows/ci_python/badge.svg)](https://github.com/scivision/lineclipping-python-fortran/actions)
 
 
 [![PyPi versions](https://img.shields.io/pypi/pyversions/pylineclip.svg)](https://pypi.python.org/pypi/pylineclip)
 [![PyPi Download stats](http://pepy.tech/badge/pylineclip)](http://pepy.tech/project/pylineclip)
 
-# Line clipping
+`lineclipping.f90` Cohen-Sutherland line clipping algorithm for
+massively parallel coarray modern Fortran. Input scalars or arrays,
+output intersections or `NaN` if no intersection.
 
--   `lineclipping.f90` Cohen-Sutherland line clipping algorithm for
-    massively parallel coarray modern Fortran. Input scalars or arrays,
-    output intersections or `NaN` if no intersection.
--   `lineClipping.py` Cohen-Sutherland line clipping algorithm for Python.
-    Input scalars, output intersection length, or `None` if no intersection.
-
+`lineClipping.py` Cohen-Sutherland line clipping algorithm for Python.
+Input scalars, output intersection length, or `None` if no intersection.
 
 Julia line clipping is at https://github.com/scivision/lineclipping-julia
 
@@ -22,8 +22,6 @@ To install the latest release:
 ```sh
 pip install pylineclip
 ```
-
-
 
 ### Fortran
 
@@ -67,13 +65,14 @@ call cohensutherland(xmin,ymax,xmax,ymin,x1,y1,x2,y2)
 
 The arguments are:
 
-    INPUTS
-    ------
-    xmin,ymax,xmax,ymin:  upper left and lower right corners of box (pixel coordinates)
+```sh
+INPUTS
+------
+xmin,ymax,xmax,ymin:  upper left and lower right corners of box (pixel coordinates)
 
-    INOUT
-    -----
-    x1,y1,x2,y2:
-    in - endpoints of line
-    out - intersection points with box. If no intersection, all NaN
-
+INOUT
+-----
+x1,y1,x2,y2:
+in - endpoints of line
+out - intersection points with box. If no intersection, all NaN
+```

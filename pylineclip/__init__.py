@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-from typing import Union, Tuple
+from __future__ import annotations
 
 # from numba import jit
 '''
@@ -17,7 +16,7 @@ from typing import Union, Tuple
 
 def cohensutherland(
     xmin: float, ymax: float, xmax: float, ymin: float, x1: float, y1: float, x2: float, y2: float
-) -> Tuple[float, float, float, float]:
+) -> tuple[float, float, float, float]:
     """Clips a line to a rectangular area.
 
     This implements the Cohen-Sutherland line clipping algorithm.  xmin,

@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-import pytest
 from pytest import approx
 import pylineclip as plc
 
@@ -21,7 +19,3 @@ def test_lineclip():
     x1, y1, x2, y2 = plc.cohensutherland(1, 5, 4, 3, 0, 4, 5, 4)
 
     assert [x1, y1, x2, y2] == [1, 4, 4, 4]
-
-
-if __name__ == '__main__':
-    pytest.main()
